@@ -31,3 +31,7 @@ CREATE TABLE `Photos` (
   `url` TEXT NOT NULL,
   `answer_id` INTEGER REFERENCES `Answers` (`id`);
 );
+
+copy questions from 'Users/bikwon/Desktop/questions.csv' delimiter ',' cvs header;
+copy answers from 'Users/bikwon/Desktop/answers.csv' delimiter ',' cvs header;
+copy answers_photos from 'Users/bikwon/Desktop/answers_photos.csv' delimiter ',' cvs header;
