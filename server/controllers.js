@@ -63,13 +63,13 @@ module.exports = {
   addAnswer: function(req, res) {
     // add photos?
     let newInfo = {
-      answer_body: req.body.body,
+      body: req.body.body,
       answerer_name: req.body.name,
       answerer_email: req.body.email,
-      question_id: req.body.question_id
+      question_id: req.params.question_id
     }
 
-    model.addQuestion(newInfo)
+    model.addAnswer(newInfo)
       .then((results) => {
         // send back info posted question_id, helpful, and reported
         res.sendStatus(201);

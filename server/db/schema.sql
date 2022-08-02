@@ -44,6 +44,12 @@ CREATE TABLE photos (
 
 ------------------------------------------------------------------------------------------
 
+SELECT pg_catalog.setval(pg_get_serial_sequence('questions', 'question_id'), MAX(question_id)) FROM questions;
+SELECT pg_catalog.setval(pg_get_serial_sequence('answers', 'id'), MAX(id)) FROM answers;
+SELECT pg_catalog.setval(pg_get_serial_sequence('photos', 'id'), MAX(id)) FROM photos;
+
+------------------------------------------------------------------------------------------
+
 CREATE INDEX product_id ON questions (product_id);
 CREATE INDEX question_id ON answers (question_id);
 CREATE INDEX answer_id ON photos (answer_id);

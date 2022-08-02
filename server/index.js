@@ -8,13 +8,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
-//ROUTES
+// GET ROUTES
 app.get('/qa/questions', controller.getQuestions);
-// app.get('/qa/questions/:question_id/answers', controller.getAnswers); // answers included in questions
+// app.get('/qa/questions/:question_id/answers', controller.getAnswers);
 
+// POST ROUTES
 app.post('/qa/questions', controller.addQuestion);
-// app.post('/qa/questions/:question_id/answers', controller.addAnswer);
+app.post('/qa/questions/:question_id/answers', controller.addAnswer);
 
+// PUT ROUTES
 // add 4 app.put() but client doesnt account for
 
 let PORT = process.env.PORT || 3000;
