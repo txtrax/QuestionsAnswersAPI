@@ -14,7 +14,7 @@ app.get('/qa/questions', controllers.question.getQuestions);
 // app.get('/qa/questions/:question_id/answers', controller.getAnswers);
 
 // app.post('/qa/questions', controllers.question.addQuestion);
-// app.post('/qa/questions/:question_id/answers', controller.addAnswer);
+app.post('/qa/questions/:question_id/answers', controllers.answer.addAnswer);
 
 // add 4 app.put() but client doesnt account for
 
