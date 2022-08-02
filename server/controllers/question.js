@@ -1,4 +1,4 @@
-const model = require('../models/models.js');
+const model = require('../models/index.js');
 
 module.exports = {
   // getQuestions still needs to account for page and count
@@ -11,7 +11,7 @@ module.exports = {
     page = Number(page) || 1;
     count = Number(count) || 5;
 
-    model.getQuestions({
+    model.question.getQuestions({
       product_id, page, count
     })
       .then((results) => {
@@ -49,7 +49,7 @@ module.exports = {
       product_id: req.body.product_id
     }
 
-    model.addQuestion(newInfo)
+    model.question.addQuestion(newInfo)
       .then((results) => {
         // send back info posted question_id, helpful, and reported
         res.sendStatus(201);

@@ -1,4 +1,4 @@
-const model = require('../models/models.js');
+const model = require('../models/index.js');
 
 module.exports = {
   addAnswer: function(req, res) {

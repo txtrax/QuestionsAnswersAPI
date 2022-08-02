@@ -3,7 +3,6 @@ const pool = require('../db/index.js');
 module.exports = {
   getQuestions: function({product_id, page, count}) {
     let offset = (page - 1) * count;
-
     // add ordered by most recent, most helpful?
     // need offset?
     let text = `
