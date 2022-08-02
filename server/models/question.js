@@ -2,9 +2,9 @@ const pool = require('../db/index.js');
 
 module.exports = {
   getQuestions: function({product_id, page, count}) {
+    // getQuestions still needs to account for page and count
+    // need ordered by most recent, most helpful?
     let offset = (page - 1) * count;
-    // add ordered by most recent, most helpful?
-    // need offset?
     let text = `
       SELECT questions.question_id, questions.question_body, questions.question_date, questions.asker_name, questions.question_helpfulness, questions.reported,
         (SELECT (json_object_agg(answers.id, json_build_object('id', answers.id, 'body', answers.body, 'date', answers.date, 'answerer_name', answers.answerer_name, 'helpfulness', answers.helpfulness, 'photos',
@@ -13,11 +13,11 @@ module.exports = {
           WHERE answers.id = photos.answer_id))))
         FROM answers
         WHERE questions.question_id = answers.question_id)
-        AS answers
+      AS answers
       FROM questions
       WHERE product_id=$1 AND reported = false
     `;
-    // DESC LIMIT $2
+    // LIMIT $2
     // OFFSET $3`;
     let values = [product_id];
 

@@ -1,7 +1,7 @@
 const model = require('../models/index.js');
 
 module.exports = {
-  // getQuestions still needs to account for page and count
+
   getQuestions: function(req, res) {
     let {
       product_id, page, count
@@ -14,13 +14,15 @@ module.exports = {
     model.question.getQuestions({
       product_id, page, count
     })
+      // format results
       .then((results) => {
-        // format results
-        let data = {
+        return {
           product_id: product_id.toString(),
           results: results.rows
         }
-        // change photo and date value
+      })
+      // change photo and date value
+      .then((data) => {
         data.results.forEach((question) => {
           question.question_date = new Date(Number(question.question_date)).toISOString();
 
@@ -36,9 +38,9 @@ module.exports = {
       })
 
       .catch((err) => {
-        console.log(err.stack);
+        // console.log(err.stack);
         res.sendStatus(500);
-      })
+      });
   },
 
   addQuestion: function(req, res) {
@@ -47,7 +49,7 @@ module.exports = {
       asker_name: req.body.name,
       asker_email: req.body.email,
       product_id: req.body.product_id
-    }
+    };
 
     model.question.addQuestion(newInfo)
       .then((results) => {
@@ -55,8 +57,8 @@ module.exports = {
         res.sendStatus(201);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.sendStatus(500);
-      })
+      });
   }
 }
