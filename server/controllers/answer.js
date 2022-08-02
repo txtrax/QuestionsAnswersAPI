@@ -10,7 +10,7 @@ module.exports = {
       question_id: req.params.question_id
     }
 
-    model.addAnswer(newInfo)
+    model.answer.addAnswer(newInfo)
       .then((results) => {
         // send back info posted question_id, helpful, and reported
         res.sendStatus(201);
