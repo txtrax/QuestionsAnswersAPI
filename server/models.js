@@ -23,9 +23,17 @@ module.exports = {
     return pool.query(text, values);
   },
 
-  // getQuestions: function(body) {
-  //   return 'hi';
-  // },
+  addQuestion: function(body) {
+    const {
+      product_id, question_body, asker_name, asker_email
+    } = body;
+    const date = Math.floor(new Date().getTime());
+
+    let text = `INSERT INTO questions(product_id, question_body, question_date, asker_name, asker_email) VALUES ($1, $2, $3, $4, $5)`
+    let values = [product_id, question_body, date, asker_name, asker_email]
+
+    return pool.query(text, values);
+  },
 
   // getAnswers: function(body) {
 

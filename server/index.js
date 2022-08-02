@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 app.get('/qa/questions', controller.getQuestions);
 // app.get('/qa/questions/:question_id/answers', controller.getAnswers); // answers included in questions
 
-// app.post('/qa/questions', controller.addQuestion);
+app.post('/qa/questions', controller.addQuestion);
 // app.post('/qa/questions/:question_id/answers', controller.addAnswer);
 
 // add 4 app.put() but client doesnt account for

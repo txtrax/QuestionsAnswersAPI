@@ -41,13 +41,42 @@ module.exports = {
       })
   },
 
-  // addQuestions: function(req, res) {
-  //   console.log('inside add questions')
-  //   res.end();
-  // },
+  addQuestion: function(req, res) {
+    let newInfo = {
+      question_body: req.body.body,
+      asker_name: req.body.name,
+      asker_email: req.body.email,
+      product_id: req.body.product_id
+    }
 
-  // addAnswers: function(req, res) {
-  //   console.log('inside add answers')
-  //   res.end();
-  // }
+    model.addQuestion(newInfo)
+      .then((results) => {
+        // send back info posted question_id, helpful, and reported
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      })
+  },
+
+  addAnswer: function(req, res) {
+    // add photos?
+    let newInfo = {
+      answer_body: req.body.body,
+      answerer_name: req.body.name,
+      answerer_email: req.body.email,
+      question_id: req.body.question_id
+    }
+
+    model.addQuestion(newInfo)
+      .then((results) => {
+        // send back info posted question_id, helpful, and reported
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      })
+  }
 }
