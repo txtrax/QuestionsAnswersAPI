@@ -1,37 +1,61 @@
-DROP TABLE IF EXIST `Questions`;
+DROP DATABASE IF EXISTS QnA_pg;
 
-CREATE TABLE `Questions` (
-  `question_id` SERIAL PRIMARY KEY,
-  `question_body` TEXT NOT NULL,
-  `question_date` TEXT NOT NULL,
-  `asker_name` TEXT NOT NULL,
-  `asker_email` TEXT NOT NULL,
-  `question_helpfulness` INTEGER NOT NULL,
-  `reported` BOOLEAN NOT NULL,
-  `product_id` INTEGER NOT NULL,
+CREATE DATABASE QnA_pg;
+
+DROP TABLE IF EXISTS questions, answers, photos;
+
+------------------------------------------------------------------------------------------
+
+CREATE TABLE questions (
+  question_id SERIAL NOT NULL PRIMARY KEY,
+  product_id INTEGER NOT NULL,
+  question_body VARCHAR(500) NOT NULL,
+  question_date BIGINT NOT NULL,
+  asker_name VARCHAR(50) NOT NULL,
+  asker_email VARCHAR(50) NOT NULL,
+  reported BOOLEAN NOT NULL DEFAULT false,
+  question_helpfulness INTEGER DEFAULT 0
 );
 
-DROP TABLE IF EXIST `Answers`;
-
-CREATE TABLE `Answers` (
-  `id` SERIAL PRIMARY KEY,
-  `body` TEXT NOT NULL,
-  `date` TEXT NOT NULL,
-  `answerer_name` TEXT NOT NULL,
-  `answerer_email` TEXT NOT NULL,
-  `helpfulness` INTEGER NOT NULL,
-  `reported` BOOLEAN NOT NULL,
-  `question_id` INTEGER REFERENCES `Questions` (`question_id`);
+CREATE TABLE answers (
+  id SERIAL NOT NULL PRIMARY KEY,
+  question_id INTEGER NOT NULL,
+  body VARCHAR(500) NOT NULL,
+  date BIGINT NOT NULL,
+  answerer_name VARCHAR(50) NOT NULL,
+  answerer_email VARCHAR(50) NOT NULL,
+  reported BOOLEAN NOT NULL DEFAULT false,
+  helpfulness INTEGER DEFAULT 0,
+  FOREIGN KEY (question_id) REFERENCES questions (question_id)
 );
 
-DROP TABLE IF EXIST `Photos`;
-
-CREATE TABLE `Photos` (
-  `id` SERIAL PRIMARY KEY,
-  `url` TEXT NOT NULL,
-  `answer_id` INTEGER REFERENCES `Answers` (`id`);
+CREATE TABLE photos (
+  id SERIAL NOT NULL PRIMARY KEY,
+  answer_id INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  FOREIGN KEY (answer_id) REFERENCES answers (id)
 );
 
-copy questions from 'Users/bikwon/Desktop/questions.csv' delimiter ',' cvs header;
-copy answers from 'Users/bikwon/Desktop/answers.csv' delimiter ',' cvs header;
-copy answers_photos from 'Users/bikwon/Desktop/answers_photos.csv' delimiter ',' cvs header;
+------------------------------------------------------------------------------------------
+
+\COPY questions FROM '/Users/bikwon/Desktop/exampleData/questions.csv' DELIMITER ',' CSV HEADER;
+\COPY answers FROM '/Users/bikwon/Desktop/exampleData/answers.csv' DELIMITER ',' CSV HEADER;
+\COPY photos FROM '/Users/bikwon/Desktop/exampleData/answers_photos.csv' DELIMITER ',' CSV HEADER;
+
+------------------------------------------------------------------------------------------
+
+CREATE INDEX product_id ON questions (product_id);
+CREATE INDEX question_id ON answers (question_id);
+CREATE INDEX answer_id ON photos (answer_id);
+
+-- dropdb QnA_pg
+-- createdb QnA_pg
+
+-- psql QnA_pg < server/db/schema.sql to load
+-- OR
+-- psql QnA_pg
+-- \i server/db/schema.sql
+-- \l pslist all databases in postgresql
+-- \c move into database
+-- \q quit
+-- \! clear -- to clear console

@@ -1,10 +1,10 @@
-//require mongoose
+// require mongoose
 const mongoose = require('mongoose');
 
 // set up connection
 mongoose.connect(`mongodb://localhost/${}`, {useNewUrlParser: true, useUnifiedTopology: true});
 
-//schema blueprint
+// schema blueprint
 let questionSchema = mongoose.Schema({
   question_id: {type: Number, unique: true, required: true},
   question_body: String,

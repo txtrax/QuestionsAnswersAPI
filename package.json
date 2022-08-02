@@ -1,7 +1,7 @@
 {
   "name": "questionsanswersapi",
   "version": "1.0.0",
-  "description": "This is the API design for the Question and Answers component",
+  "description": "Backend API design for the Question and Answers",
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/index.js",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.1.2",
