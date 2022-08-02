@@ -1,7 +1,7 @@
 const pool = require('./db/index.js');
 
 module.exports = {
-  getQuestions: function({ product_id, page, count }) {
+  getQuestions: function({product_id, page, count}) {
     let offset = (page - 1) * count;
 
     // add ordered by most recent, most helpful?
@@ -21,5 +21,13 @@ module.exports = {
     let values = [product_id];
 
     return pool.query(text, values);
-  }
+  },
+
+  // getQuestions: function(body) {
+  //   return 'hi';
+  // },
+
+  // getAnswers: function(body) {
+
+  // }
 }

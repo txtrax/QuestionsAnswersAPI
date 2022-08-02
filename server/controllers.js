@@ -1,7 +1,7 @@
 const model = require('./models.js');
 
 module.exports = {
-  // need to account for page and count
+  // getQuestions still needs to account for page and count
   getQuestions: function(req, res) {
     let {
       product_id, page, count
@@ -15,19 +15,23 @@ module.exports = {
       product_id, page, count
     })
       .then((results) => {
+        // format results
         let data = {
           product_id: product_id.toString(),
           results: results.rows
         }
-        // change photo value from null to []
+        // change photo and date value
         data.results.forEach((question) => {
+          question.question_date = new Date(Number(question.question_date)).toISOString();
+
           for (var key in question.answers) {
+            question.answers[key].date = new Date(Number(question.answers[key].date)).toISOString();
+
             if (question.answers[key].photos === null) {
               question.answers[key].photos = [];
             }
           }
         })
-
         res.status(200).send(data);
       })
 
@@ -37,8 +41,13 @@ module.exports = {
       })
   },
 
-  getAnswers: function(req, res) {
-    console.log('inside get answers')
-    res.end();
-  }
+  // addQuestions: function(req, res) {
+  //   console.log('inside add questions')
+  //   res.end();
+  // },
+
+  // addAnswers: function(req, res) {
+  //   console.log('inside add answers')
+  //   res.end();
+  // }
 }
