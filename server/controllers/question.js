@@ -1,4 +1,4 @@
-const model = require('./models.js');
+const model = require('../models/models.js');
 
 module.exports = {
   // getQuestions still needs to account for page and count
