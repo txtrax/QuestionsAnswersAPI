@@ -14,7 +14,7 @@ module.exports = {
         return {
           product_id: product_id.toString(),
           results: results.rows
-        }
+        };
       })
       // change photo and date values
       .then((data) => {
@@ -26,9 +26,9 @@ module.exports = {
 
             if (question.answers[key].photos === null) {
               question.answers[key].photos = [];
-            }
-          }
-        })
+            };
+          };
+        });
         res.status(200).send(data);
       })
 

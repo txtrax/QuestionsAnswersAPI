@@ -1,14 +1,11 @@
 require('dotenv').config();
-
 const express = require('express');
 const controllers = require('./controllers/index.js');
 
 const app = express();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ROUTES
 app.get('/qa/questions', controllers.question.getQuestions);
 
 app.get('/qa/questions/:question_id/answers', controllers.answer.getAnswers);

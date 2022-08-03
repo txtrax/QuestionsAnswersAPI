@@ -15,7 +15,7 @@ module.exports = {
           page,
           count,
           results: results.rows
-        }
+        };
       })
       .then((data) => {
         data.results.forEach((answer) => {
@@ -26,8 +26,8 @@ module.exports = {
 
           if (answer.photos === null) {
             answer.photos = [];
-          }
-        })
+          };
+        });
         res.status(200).send(data);
       })
 
@@ -43,14 +43,13 @@ module.exports = {
       answerer_name: req.body.name,
       answerer_email: req.body.email,
       question_id: req.params.question_id
-    }
+    };
 
     models.answer.addAnswer(newInfo)
       .then((results) => {
         res.sendStatus(201);
       })
       .catch((err) => {
-        console.log(err);
         res.sendStatus(500);
       });
   },
@@ -74,4 +73,4 @@ module.exports = {
         res.sendStatus(500);
       });
   }
-}
+};

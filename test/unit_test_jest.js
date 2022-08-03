@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require("express");
 const { Pool } = require('pg');
 let request = require("supertest");
@@ -17,6 +17,6 @@ pool.connect((err, res) => {
   if (err) {
     console.log(err);
   } else {
-    console.log(`Connected to database ${pool.database}`)
-  }
+    console.log(`Connected to database ${pool.database}`);
+  };
 });
