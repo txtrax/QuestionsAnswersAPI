@@ -1,6 +1,22 @@
 const pool = require('../db/index.js');
 
 module.exports = {
+  getAnswers: function({question_id, page, count}) {
+    let offset = (page - 1) * count;
+    let text = `
+      SELECT answers.id, answers.body, answers.date, answers.answerer_name, answers.helpfulness,
+        (SELECT (array_agg(json_build_object('id', photos.id, 'url', photos.url)))
+        FROM photos
+        WHERE answers.id = photos.answer_id)
+      AS photos
+      FROM answers
+      WHERE question_id=$1 AND reported = false
+    `;
+    let values = [question_id];
+
+    return pool.query(text, values);
+  },
+
   addAnswer: function(obj) {
     const {
       question_id, body, answerer_name, answerer_email

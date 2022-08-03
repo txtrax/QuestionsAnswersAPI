@@ -11,7 +11,7 @@ app.use(express.json());
 // ROUTES
 app.get('/qa/questions', controllers.question.getQuestions);
 
-// app.get('/qa/questions/:question_id/answers', controller.getAnswers); //answers included in getQuestions
+app.get('/qa/questions/:question_id/answers', controllers.answer.getAnswers);
 
 app.post('/qa/questions', controllers.question.addQuestion);
 
