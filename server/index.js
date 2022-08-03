@@ -17,9 +17,9 @@ app.post('/qa/questions', controllers.question.addQuestion);
 
 app.post('/qa/questions/:question_id/answers', controllers.answer.addAnswer);
 
-// app.put('/qa/questions/:question_id/helpful', controllers.question.updateHelpful);
+app.put('/qa/questions/:question_id/helpful', controllers.question.updateHelpful);
 
-// app.put('/qa/questions/:question_id/report', controllers.question.report);
+app.put('/qa/questions/:question_id/report', controllers.question.report);
 
 // app.put('/qa/answers/:answer_id/helpful', controllers.answer.updateHelpful);
 

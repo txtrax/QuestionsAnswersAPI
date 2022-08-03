@@ -1,4 +1,4 @@
-const model = require('../models/index.js');
+const models = require('../models/index.js');
 
 module.exports = {
 
@@ -11,7 +11,7 @@ module.exports = {
     page = Number(page) || 1;
     count = Number(count) || 5;
 
-    model.question.getQuestions({
+    models.question.getQuestions({
       product_id, page, count
     })
       // format results
@@ -21,7 +21,7 @@ module.exports = {
           results: results.rows
         }
       })
-      // change photo and date value
+      // change photo and date values
       .then((data) => {
         data.results.forEach((question) => {
           question.question_date = new Date(Number(question.question_date)).toISOString();
@@ -51,14 +51,33 @@ module.exports = {
       product_id: req.body.product_id
     };
 
-    model.question.addQuestion(newInfo)
+    models.question.addQuestion(newInfo)
       .then((results) => {
-        // send back info posted question_id, helpful, and reported
+        // client side expecting updated info from db
         res.sendStatus(201);
       })
       .catch((err) => {
-        // console.log(err);
+        res.sendStatus(500);
+      });
+  },
+
+  updateHelpful: function (req, res) {
+    models.question.updateHelpful(req.params.question_id)
+      .then(results => {
+        res.sendStatus(204);
+      })
+      .catch(err => {
+        res.sendStatus(500);
+      });
+  },
+
+  report: function (req, res) {
+    models.question.report(req.params.question_id)
+      .then(results => {
+        res.sendStatus(204);
+      })
+      .catch(err => {
         res.sendStatus(500);
       });
   }
-}
+};
