@@ -11,5 +11,23 @@ module.exports = {
     let values = [question_id, body, date, answerer_name, answerer_email]
 
     return pool.query(text, values);
+  },
+
+  updateHelpful: function(answer_id) {
+    let text = `UPDATE answers
+      SET helpfulness = helpfulness + 1
+      WHERE id=$1`;
+    let values = [answer_id];
+
+    return pool.query(text, values);
+  },
+
+  report: function (answer_id) {
+    let text = `UPDATE answers
+      SET reported=true
+      WHERE id=$1`;
+    let values = [answer_id];
+
+    return pool.query(text, values);
   }
 }

@@ -12,7 +12,7 @@ module.exports = {
           FROM photos
           WHERE answers.id = photos.answer_id))))
         FROM answers
-        WHERE questions.question_id = answers.question_id)
+        WHERE questions.question_id = answers.question_id AND reported = false)
       AS answers
       FROM questions
       WHERE product_id=$1 AND reported = false

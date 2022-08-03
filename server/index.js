@@ -21,9 +21,9 @@ app.put('/qa/questions/:question_id/helpful', controllers.question.updateHelpful
 
 app.put('/qa/questions/:question_id/report', controllers.question.report);
 
-// app.put('/qa/answers/:answer_id/helpful', controllers.answer.updateHelpful);
+app.put('/qa/answers/:answer_id/helpful', controllers.answer.updateHelpful);
 
-// app.put('/qa/answers/:answer_id/report', controllers.answer.report);
+app.put('/qa/answers/:answer_id/report', controllers.answer.report);
 
 const PORT = process.env.PORT || 3000;
 

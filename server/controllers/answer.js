@@ -1,4 +1,4 @@
-const model = require('../models/index.js');
+const models = require('../models/index.js');
 
 module.exports = {
   addAnswer: function(req, res) {
@@ -10,14 +10,33 @@ module.exports = {
       question_id: req.params.question_id
     }
 
-    model.answer.addAnswer(newInfo)
+    models.answer.addAnswer(newInfo)
       .then((results) => {
-        // send back info posted question_id, helpful, and reported
         res.sendStatus(201);
       })
       .catch((err) => {
         console.log(err);
         res.sendStatus(500);
       })
+  },
+
+  updateHelpful: function (req, res) {
+    models.answer.updateHelpful(req.params.answer_id)
+      .then(results => {
+        res.sendStatus(204);
+      })
+      .catch(err => {
+        res.sendStatus(500);
+      });
+  },
+
+  report: function (req, res) {
+    models.answer.report(req.params.answer_id)
+      .then(results => {
+        res.sendStatus(204);
+      })
+      .catch(err => {
+        res.sendStatus(500);
+      });
   }
 }
