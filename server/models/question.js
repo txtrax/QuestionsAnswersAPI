@@ -14,12 +14,10 @@ module.exports = {
       AS answers
       FROM questions
       WHERE product_id=$1 AND reported = false
+      LIMIT $2
+      OFFSET $3
     `;
-    // LIMIT $2
-    // OFFSET $3`;
-    // still needs to account for page and count
-    let offset = (page - 1) * count;
-    let values = [product_id];
+    let values = [product_id, count, (page - 1) * count];
 
     return pool.query(text, values);
   },

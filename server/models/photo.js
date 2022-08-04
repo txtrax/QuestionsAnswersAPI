@@ -8,7 +8,7 @@ module.exports = {
     let values = [];
 
     photos.forEach((url) => {
-      values.push([answer_id, url])
+      values.push([answer_id, url]);
     });
 
     return pool.query(format(text, values));

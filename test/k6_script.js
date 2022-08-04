@@ -9,15 +9,15 @@ export const options = {
 export default function () {
   const newQuestion = {
     body: "How will this look on me after KBBQ tho?",
-    name: "Theresa",
+    name: "Lola",
     email: "none-ya-bizniz@gmail.com",
     product_id: Math.floor(Math.random() * 1000000)
   };
 
   let newAnswer = {
     body: "Girl, you on fleek!",
-    name: "Theresa2",
-    email: "none-ya-beezwax@gmail.com",
+    name: "BB8",
+    email: "none-ya-beebeezwax@gmail.com",
     photos: []
   };
 

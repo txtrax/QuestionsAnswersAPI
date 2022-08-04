@@ -11,9 +11,10 @@ module.exports = {
       AS photos
       FROM answers
       WHERE question_id=$1 AND reported = false
+      LIMIT $2
+      OFFSET $3
     `;
-    let offset = (page - 1) * count;
-    let values = [question_id];
+    let values = [question_id, count, (page - 1) * count];
 
     return pool.query(text, values);
   },
