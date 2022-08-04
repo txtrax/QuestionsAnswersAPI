@@ -1,13 +1,14 @@
 const models = require('../models/index.js');
 
 module.exports = {
+
   getAnswers: function(req, res) {
-    let question_id = Number(req.params.question_id) ||1;
-    const page = Number(req.query.page) ||1;
-    const count = Number(req.query.count) ||5;
+    const page = Number(req.query.page) || 1;
+    const count = Number(req.query.count) || 5;
+    let question_id = Number(req.params.question_id);
 
     models.answer.getAnswers({
-      question_id, page, count
+      page, count, question_id
     })
       .then((results) => {
         return {
@@ -17,6 +18,7 @@ module.exports = {
           results: results.rows
         };
       })
+
       .then((data) => {
         data.results.forEach((answer) => {
           answer.answer_id = answer.id;
@@ -37,8 +39,8 @@ module.exports = {
   },
 
   addAnswer: function(req, res) {
-    // add photos?
-    let newInfo = {
+    const photos = req.body.photos;
+    const newInfo = {
       body: req.body.body,
       answerer_name: req.body.name,
       answerer_email: req.body.email,
@@ -47,6 +49,14 @@ module.exports = {
 
     models.answer.addAnswer(newInfo)
       .then((results) => {
+        if (photos && photos.length > 0) {
+          let answer_id = results.rows[0].id;
+
+          return models.photo.addPhoto(answer_id, photos);
+        }
+        return;
+      })
+      .then(() => {
         res.sendStatus(201);
       })
       .catch((err) => {
@@ -73,4 +83,5 @@ module.exports = {
         res.sendStatus(500);
       });
   }
+
 };

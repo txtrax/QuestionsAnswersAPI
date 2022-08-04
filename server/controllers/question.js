@@ -1,13 +1,14 @@
 const models = require('../models/index.js');
 
 module.exports = {
+
   getQuestions: function(req, res) {
-    let product_id = Number(req.query.product_id);
     const page = Number(req.query.page) || 1;
     const count = Number(req.query.count) || 5;
+    let product_id = Number(req.query.product_id);
 
     models.question.getQuestions({
-      product_id, page, count
+      page, count, product_id
     })
       .then((results) => {
         return {
@@ -15,11 +16,12 @@ module.exports = {
           results: results.rows
         };
       })
+
       .then((data) => {
         data.results.forEach((question) => {
           question.question_date = new Date(Number(question.question_date)).toISOString();
 
-          for (var key in question.answers) {
+          for (let key in question.answers) {
             question.answers[key].date = new Date(Number(question.answers[key].date)).toISOString();
 
             if (question.answers[key].photos === null) {
@@ -36,7 +38,7 @@ module.exports = {
   },
 
   addQuestion: function(req, res) {
-    let newInfo = {
+    const newInfo = {
       question_body: req.body.body,
       asker_name: req.body.name,
       asker_email: req.body.email,
@@ -71,4 +73,5 @@ module.exports = {
         res.sendStatus(500);
       });
   }
+
 };

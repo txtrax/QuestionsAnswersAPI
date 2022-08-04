@@ -57,7 +57,7 @@ CREATE INDEX answer_id ON photos (answer_id);
 -- dropdb QnA_pg
 -- createdb QnA_pg
 
--- psql QnA_pg < server/db/schema.sql to load
+-- psql QnA_pg < server/db/schema.sql
 -- OR
 -- psql QnA_pg
 -- \i server/db/schema.sql
