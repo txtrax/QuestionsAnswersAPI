@@ -9,14 +9,12 @@ module.exports = {
     models.question.getQuestions({
       product_id, page, count
     })
-      // format results
       .then((results) => {
         return {
           product_id: product_id.toString(),
           results: results.rows
         };
       })
-      // change photo and date values
       .then((data) => {
         data.results.forEach((question) => {
           question.question_date = new Date(Number(question.question_date)).toISOString();
@@ -33,7 +31,6 @@ module.exports = {
       })
 
       .catch((err) => {
-        // console.log(err.stack);
         res.sendStatus(500);
       });
   },
@@ -48,7 +45,6 @@ module.exports = {
 
     models.question.addQuestion(newInfo)
       .then((results) => {
-        // client side expecting updated info from db
         res.sendStatus(201);
       })
       .catch((err) => {
