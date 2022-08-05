@@ -65,3 +65,4 @@ CREATE INDEX answer_id ON photos (answer_id);
 -- \c move into database
 -- \q quit
 -- \! clear -- to clear console
+-- \d <table name> to check tables

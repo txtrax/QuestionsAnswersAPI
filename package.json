@@ -5,8 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/index.js",
-    "test-jest": "jest",
-    "test": "mocha"
+    "test": "mocha",
+    "test-jest": "jest"
   },
   "author": "Theresa Tran",
   "license": "ISC",

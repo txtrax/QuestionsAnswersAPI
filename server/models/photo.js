@@ -11,7 +11,7 @@ module.exports = {
       values.push([answer_id, url]);
     });
 
-    return pool.query(format(text, values));
+    return pool.query(format(text, values)); //multiple insertions into a table
   }
 
 };
